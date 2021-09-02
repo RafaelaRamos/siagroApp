@@ -8,8 +8,9 @@
         android:label="siagro"
         android:icon="@mipmap/ic_launcher">
 
+       
          <meta-data android:name="com.google.android.geo.API_KEY"
-               android:value="AIzaSyCon8VgFv9ajzKx3jlaPG-1c-ikkPSCvV0"/>
+               android:value="APIKEY"/>
           <meta-data  android:name="com.google.android.gms.version"
 		     android:value="@integer/google_play_services_version" />
    <activity

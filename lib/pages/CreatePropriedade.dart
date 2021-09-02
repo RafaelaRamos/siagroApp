@@ -3,6 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:polymaker/core/models/trackingmode.dart';
 import 'package:provider/provider.dart';
 import 'package:siagro/models/Propriedade.dart';
+import 'package:siagro/pages/getMap.dart';
 import 'package:siagro/provider/PropriedadeProvider.dart';
 import 'package:siagro/routes/AppRouters.dart';
 import 'package:polymaker/polymaker.dart' as polymaker;
@@ -17,6 +18,7 @@ class _CreatePropriedadeState extends State<CreatePropriedade> {
   final Map<String, String> _formData = {};
   Propriedade propriedade;
   List<LatLng> locationList;
+  LatLng points;
 
   void getLocation() async {
     var result = await polymaker.getLocation(context,
@@ -99,7 +101,7 @@ class _CreatePropriedadeState extends State<CreatePropriedade> {
                               ),
                             ),
                             SizedBox(
-                              height: 20,
+                              height: 10,
                             ),
                             Container(
                               width: 250,
@@ -190,6 +192,30 @@ class _CreatePropriedadeState extends State<CreatePropriedade> {
                               child: TextButton(
                                   child: Row(children: <Widget>[
                                     Icon(
+                                      Icons.house_outlined,
+                                      color: Colors.green,
+                                    ),
+                                    Text(
+                                      "Sede",
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16),
+                                    )
+                                  ]),
+                                  // ignore: sdk_version_set_literal
+                                  onPressed: () => {
+                                        _awaitReturnValueFromSecondScreen(
+                                            context),
+                                      }
+                                  //arguments: propriedade,
+                                  ),
+                            ),
+                            Container(
+                              width: 250,
+                              alignment: Alignment.center,
+                              child: TextButton(
+                                  child: Row(children: <Widget>[
+                                    Icon(
                                       Icons.gps_fixed,
                                       color: Colors.green,
                                     ),
@@ -255,8 +281,9 @@ class _CreatePropriedadeState extends State<CreatePropriedade> {
                                                   .toString(),
                                               telefone: _formData['telefone']
                                                   .toString(),
-                                              poligono: this.locationList));
-                                      print(locationList);
+                                              poligono: this.locationList,
+                                              sedePoint: points));
+                                      print(points);
                                       Navigator.pushNamed(context,
                                           AppRouters.LISTAPROPRIEDADES);
                                     }
@@ -284,5 +311,19 @@ class _CreatePropriedadeState extends State<CreatePropriedade> {
                     ],
                   ))),
         ));
+  }
+
+  void _awaitReturnValueFromSecondScreen(BuildContext context) async {
+    // start the SecondScreen and wait for it to finish with a result
+    final result = await Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => GetMap(),
+        ));
+    if (result != null) {
+      setState(() {
+        points = result;
+      });
+    }
   }
 }

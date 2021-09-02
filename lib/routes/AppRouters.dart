@@ -4,8 +4,10 @@ class AppRouters {
   static const CREATECOUNT = '/createform-';
   static const DETAILS = '/details-';
   static const LISTAPROPRIEDADES = '/propriedades-';
+  static const LISTAMODULO = '/modulos-';
   static const CREATEPROPRIEDADE = './createpropform-';
-  static const GETMAP = './getmap-';
-  static const GETMAPOLYGON = './getmappolygon-';
   static const CREATEMODULO = './createmodulo-';
+  static const GETMAPOLYGON = './getmappolygon-';
+  static const SHOWMODULO = './showmodulo-';
+  static const GETMAP = './getmap-';
 }

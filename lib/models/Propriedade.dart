@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:siagro/models/Modulo.dart';
 
 class Propriedade {
   final String id;
@@ -8,6 +9,8 @@ class Propriedade {
   final String contato;
   final String telefone;
   final List<LatLng> poligono;
+  final List<Modulo> modulos;
+  final LatLng sedePoint;
 
   const Propriedade(
       {@required this.id,
@@ -15,7 +18,9 @@ class Propriedade {
       @required this.proprietario,
       @required this.contato,
       @required this.telefone,
-      @required this.poligono});
+      @required this.poligono,
+      @required this.modulos,
+      @required this.sedePoint});
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
@@ -24,7 +29,9 @@ class Propriedade {
       'proprietário': proprietario,
       'contato': contato,
       'telefone': telefone,
-      'poligono': poligono
+      'poligono': poligono,
+      'modulo': modulos,
+      'sedePoint': sedePoint
     };
     return map;
   }

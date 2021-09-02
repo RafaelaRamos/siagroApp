@@ -1,11 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:siagro/main.dart';
+import 'package:siagro/pages/ListPropriedades.dart';
 import 'package:siagro/routes/AppRouters.dart';
 
 class Login extends StatelessWidget {
+  final storage = FlutterSecureStorage();
   final _form = GlobalKey<FormState>();
   final Map<String, String> _formData = {};
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
+  void displayDialog(context, title, text) => showDialog(
+        context: context,
+        builder: (context) =>
+            AlertDialog(title: Text(title), content: Text(text)),
+      );
+
+  Future<String> attemptLogIn(String username, String password) async {
+    var res = await http.post(
+        Uri.parse("http://10.0.3.2:3000/api/v1/auth/login"),
+        body: {"username": username, "password": password});
+    print(res.statusCode);
+
+    if (res.statusCode == 201) return res.body;
+
+    return null;
+  }
+
+  /*Future<int> attemptSignUp(String username, String password) async {
+    var res = await http.post('$SERVER_IP/signup',
+        body: {"username": username, "password": password});
+    return res.statusCode;
+  }
+*/
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,6 +92,7 @@ class Login extends StatelessWidget {
                         Container(
                           width: 250,
                           child: TextFormField(
+                              controller: _usernameController,
                               keyboardType: TextInputType.emailAddress,
                               decoration: InputDecoration(
                                 labelText: "E-mail",
@@ -75,6 +106,7 @@ class Login extends StatelessWidget {
                         Container(
                           width: 250,
                           child: TextFormField(
+                              controller: _passwordController,
                               keyboardType: TextInputType.visiblePassword,
                               obscureText: true,
                               decoration: InputDecoration(
@@ -136,10 +168,28 @@ class Login extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              onPressed: () {
-                                Navigator.of(context).pushReplacementNamed(
-                                  AppRouters.LISTAPROPRIEDADES,
-                                );
+                              onPressed: () async {
+                                var username = _usernameController.text;
+                                var password = _passwordController.text;
+                                Navigator.pushNamed(
+                                    context, AppRouters.LISTAPROPRIEDADES);
+
+                                /* var jwt =
+                                    await attemptLogIn(username, password);
+                                print(jwt);
+                                if (jwt != null) {
+                                  storage.write(key: "jwt", value: jwt);
+
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ListPropriedades.fromBase64(
+                                                  jwt)));
+                                } else {
+                                  displayDialog(context, "An Error Occurred",
+                                      "No account was found matching that username and password");
+                                }*/
                               },
                             ),
                           ),

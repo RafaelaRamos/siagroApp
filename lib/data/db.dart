@@ -1,44 +1,61 @@
+import 'package:path_provider/path_provider.dart';
+import 'package:siagro/models/Modulo.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:sqflite/sqlite_api.dart';
+import 'dart:io' as io;
 
-class DB {
-  static Future<void> createTables(Database database) async {
-    await database.execute("""CREATE TABLE items(
-        id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-        nome TEXT,
-        proprietario TEXT,
-        contato TEXT,
-        telefone TEXT
-      )
-      """);
+import 'package:path/path.dart';
+
+class DBHelper {
+  static const String TABLE = 'siagro';
+  static const String ID = 'id';
+  static const String NOME = 'nome';
+  static const String PROPRIETARIO = 'proprietario';
+  static const String CONTATO = 'contato';
+  static const String TELEFONE = 'telefone';
+  static const String POLIGONO = 'poligono';
+  static const String DB_NAME = 'siagro.db';
+
+  DBHelper._();
+  // Criar uma instancia de DB
+  static final DBHelper instance = DBHelper._();
+  //Instancia do SQLite
+  static Database _db;
+
+  get database async {
+    if (_db != null) return _db;
+
+    return await _initDatabase();
   }
 
-  static Future<Database> db() async {
-    return openDatabase(
-      'bd.db',
+  _initDatabase() async {
+    return await openDatabase(
+      join(await getDatabasesPath(), 'siagro.db'),
       version: 1,
-      onCreate: (Database database, int version) async {
-        await createTables(database);
-      },
+      onCreate: _onCreate,
     );
   }
 
-  static Future<int> createItem(
-      String nome, String proprietario, String contato, String telefone) async {
-    final db = await DB.db();
-
-    final data = {
-      'nome': nome,
-      'proprietario': proprietario,
-      'contato': contato,
-      'telefone': telefone
-    };
-    final id = await db.insert('items', data,
-        conflictAlgorithm: ConflictAlgorithm.replace);
-    return id;
+  _onCreate(db, versao) async {
+    await db.execute(_modulo);
   }
 
-  static Future<List<Map<String, dynamic>>> getItems() async {
-    final db = await DB.db();
-    return db.query('items', orderBy: "id");
+  String get _modulo => '''
+    CREATE TABLE modulos (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+       nome TEXT
+     
+    );
+  ''';
+
+  Future<List<Modulo>> getEmployees() async {
+    var dbClient = await database;
+    List<Map> list = await dbClient.rawQuery('SELECT * FROM modulos');
+    List<Modulo> employees = new List();
+    for (int i = 0; i < list.length; i++) {
+      employees.add(new Modulo(id: list[i]["id"], nome: list[i]["nome"]));
+    }
+    print(employees.length);
+    return employees;
   }
 }

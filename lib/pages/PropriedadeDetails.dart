@@ -159,9 +159,10 @@ class _PropriedadeDetailsState extends State<PropriedadeDetails> {
                       fontSize: 20,
                     ),
                   ),
-                  onPressed: () =>
-                      Navigator.pushNamed(context, AppRouters.CREATEMODULO)),
-            ),
+                  onPressed: () => {
+                        Navigator.pushNamed(context, AppRouters.LISTAMODULO),
+                      }),
+            )
           ]),
         ]));
   }

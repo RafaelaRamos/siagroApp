@@ -18,7 +18,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.11.0 <3.0.0"
+  sdk: ">=2.0.1 <3.0.0"
 
 dependencies:
   flutter:
@@ -26,15 +26,20 @@ dependencies:
   provider:
   cupertino_icons: ^1.0.2
   google_maps_flutter: ^2.0.6
-  location: ^4.3.0
-  syncfusion_flutter_maps: ^19.2.56-beta
   rxdart:
-  dio:
+  dio: ^2.1.13
+  geolocator: ^7.4.0
   sqflite: ^2.0.0+3
   path_provider: ^2.0.2
-  geolocator: ^7.0.1
+  dependencies:
   geocoding: ^2.0.0
+  bloc_pattern: ^2.2.3
+  latlng: ^0.1.0
   polymaker: ^1.0.2
+  
+  flutter_secure_storage: ^3.3.1+1
+  http: ^0.13.3
+  modal_bottom_sheet: ^2.0.0
   
 dev_dependencies:
   flutter_test:
@@ -82,4 +87,5 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
   assets:
     - assets/agro.png
-   
+  
+  

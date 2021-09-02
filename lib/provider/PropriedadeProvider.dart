@@ -54,8 +54,8 @@ class PropriedadesProvider with ChangeNotifier {
               proprietario: propriedade.proprietario,
               contato: propriedade.contato,
               telefone: propriedade.telefone,
-              poligono: propriedade.poligono));
-      print(propriedade);
+              poligono: propriedade.poligono,
+              sedePoint: propriedade.sedePoint));
     }
     notifyListeners();
   }
