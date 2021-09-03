@@ -12,6 +12,7 @@ import 'package:siagro/pages/login.dart';
 import 'package:siagro/provider/ModuloProvider.dart';
 import 'package:siagro/provider/PropriedadeProvider.dart';
 import 'routes/AppRouters.dart';
+import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart'
     show FlutterSecureStorage;
 //import 'dart:convert' show json, base64, ascii;

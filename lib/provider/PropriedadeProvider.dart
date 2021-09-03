@@ -26,7 +26,7 @@ class PropriedadesProvider with ChangeNotifier {
     }
   }
 
-  void put(Propriedade propriedade) {
+  /* void put(Propriedade propriedade) {
     if (propriedade == null) {
       return;
     }
@@ -58,5 +58,5 @@ class PropriedadesProvider with ChangeNotifier {
               sedePoint: propriedade.sedePoint));
     }
     notifyListeners();
-  }
+  }*/
 }

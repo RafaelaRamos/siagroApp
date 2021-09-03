@@ -1,25 +1,43 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:siagro/models/Propriedade.dart';
 import 'package:siagro/provider/PropriedadeProvider.dart';
 import 'package:siagro/routes/AppRouters.dart';
+import 'package:http/http.dart' as http;
 
 import 'PropriedadeTile.dart';
 
-class ListPropriedades extends StatelessWidget {
-  //ListPropriedades(this.jwt, this.payload);
-  //final String jwt;
-  // final Map<String, dynamic> payload;
+class ListPropriedades extends StatefulWidget {
+  @override
+  _ListPropriedadesState createState() => _ListPropriedadesState();
+}
 
-  /*factory ListPropriedades.fromBase64(String jwt) => ListPropriedades(
-      jwt,
-      json.decode(
-          ascii.decode(base64.decode(base64.normalize(jwt.split(".")[1])))));*/
+class _ListPropriedadesState extends State<ListPropriedades> {
+  List<Propriedade> propriedades;
+
+  Future<List<Propriedade>> fetchPropriedades() async {
+    final response =
+        await http.get(Uri.parse("http://10.0.3.2:3000/api/v1/propriedade/2"));
+    setState(() {
+      Iterable list = json.decode(response.body);
+      propriedades = list.map((model) => Propriedade.fromJson(model)).toList();
+    });
+  }
+
+  initState() {
+    super.initState();
+    fetchPropriedades();
+  }
+
+  dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final PropriedadesProvider propriedades = Provider.of(context);
+    //final PropriedadesProvider propriedades = Provider.of(context);
+
     return Scaffold(
         appBar: AppBar(
             title: Text('Propriedades',
@@ -33,8 +51,8 @@ class ListPropriedades extends StatelessWidget {
               ),
             ]),
         body: ListView.builder(
-          itemCount: propriedades.count,
-          itemBuilder: (ctx, i) => PropriedadeTile(propriedades.byIndex(i)),
+          itemCount: propriedades.length,
+          itemBuilder: (ctx, i) => PropriedadeTile(propriedades[i]),
         ));
   }
 }
