@@ -31,7 +31,7 @@ class DBHelper {
   _initDatabase() async {
     return await openDatabase(
       join(await getDatabasesPath(), 'siagro.db'),
-      version: 1,
+      version: 3,
       onCreate: _onCreate,
     );
   }
@@ -43,19 +43,9 @@ class DBHelper {
   String get _modulo => '''
     CREATE TABLE modulos (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-       nome TEXT
+       nome TEXT,
+       poligono TEXT
      
     );
   ''';
-
-  Future<List<Modulo>> getEmployees() async {
-    var dbClient = await database;
-    List<Map> list = await dbClient.rawQuery('SELECT * FROM modulos');
-    List<Modulo> employees = new List();
-    for (int i = 0; i < list.length; i++) {
-      employees.add(new Modulo(id: list[i]["id"], nome: list[i]["nome"]));
-    }
-    print(employees.length);
-    return employees;
-  }
 }

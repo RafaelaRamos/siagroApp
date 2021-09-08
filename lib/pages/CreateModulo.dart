@@ -28,6 +28,7 @@ class _CreateModuloState extends State<CreateModulo> {
   @override
   void initState() {
     super.initState();
+    _posicaoAtual();
     locationList = [];
   }
 
@@ -156,10 +157,12 @@ class _CreateModuloState extends State<CreateModulo> {
                                       _form.currentState.save();
                                       Provider.of<ModuloProvider>(context,
                                               listen: false)
-                                          .setModulo(Modulo(
-                                        nome: _formData['nome'].toString(),
-                                        // poligono: this.locationList
-                                      ));
+                                          .setModulo(
+                                              Modulo(
+                                                nome: _formData['nome']
+                                                    .toString(),
+                                              ),
+                                              this.locationList);
 
                                       Navigator.pushNamed(
                                           context, AppRouters.LISTAMODULO);
@@ -219,7 +222,7 @@ class _CreateModuloState extends State<CreateModulo> {
     long = posicao.longitude;
 
     var result = await polymaker.getLocation(context,
-        targetCameraPosition: LatLng(lat, long),
+        targetCameraPosition: LatLng(-6.88634, -38.5614),
         //LatLng(-6.88634, -38.5614),
         trackingMode: TrackingMode.PLANAR,
         enableDragMarker: true);
@@ -227,6 +230,7 @@ class _CreateModuloState extends State<CreateModulo> {
       setState(() {
         locationList = result;
       });
+      print(locationList.toString());
     }
   }
 }

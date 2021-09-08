@@ -5,11 +5,8 @@ import 'package:siagro/data/db.dart';
 import 'package:siagro/models/Modulo.dart';
 import 'package:siagro/pages/ModuloTile.dart';
 import 'package:siagro/provider/ModuloProvider.dart';
-import 'package:siagro/provider/PropriedadeProvider.dart';
 import 'package:siagro/routes/AppRouters.dart';
 import 'package:sqflite/sqlite_api.dart';
-
-import 'PropriedadeTile.dart';
 
 class ListModulos extends StatefulWidget {
   @override
@@ -26,16 +23,24 @@ class ListModulos extends StatefulWidget {
 
 class _ListModulosState extends State<ListModulos> {
   List<Modulo> modulos;
-  // Provider provider=;
+  Database db;
   @override
   void initState() {
     super.initState();
+    getmodulosAll();
+  }
+
+  getmodulosAll() async {
+    db = await DBHelper.instance.database;
+    Iterable list =
+        await db.query('modulos', columns: ["id", "nome", "poligono"]);
+    setState(() {
+      modulos = list.map((model) => Modulo.fromJson(model)).toList();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<ModuloProvider>(context);
-
     return Scaffold(
         appBar: AppBar(
             title:
@@ -50,8 +55,8 @@ class _ListModulosState extends State<ListModulos> {
             ]),
         body: Container(
             child: ListView.builder(
-                itemCount: provider.count,
-                itemBuilder: (ctx, i) =>
-                    ModuloTile(provider.getmodulosAll(i)))));
+          itemCount: modulos.length,
+          itemBuilder: (ctx, i) => ModuloTile(modulos[i]),
+        )));
   }
 }

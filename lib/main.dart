@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
             routes: {
               AppRouters.HOME: (_) => Login(),
               AppRouters.CREATECOUNT: (_) => CreateCount(),
-              AppRouters.DETAILS: (_) => PropriedadeDetails(),
+              // AppRouters.DETAILS: (_) => PropriedadeDetails(),
               AppRouters.LISTAPROPRIEDADES: (_) => ListPropriedades(),
               AppRouters.LISTAMODULO: (_) => ListModulos(),
               AppRouters.CREATEPROPRIEDADE: (_) => CreatePropriedade(),

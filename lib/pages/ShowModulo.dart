@@ -72,4 +72,6 @@ class _ShowModuloState extends State<ShowModulo> {
       //different sections of polyline can have different colors
     });
   }
+
+  convertPoints() {}
 }

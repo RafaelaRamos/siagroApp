@@ -2,22 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:siagro/models/Propriedade.dart';
 import 'package:siagro/routes/AppRouters.dart';
 
-class PropriedadeDetails extends StatefulWidget {
-  Propriedade propriedade;
+class PropriedadeDetails extends StatelessWidget {
+  final Propriedade _propriedade;
 
-  @override
-  _PropriedadeDetailsState createState() => _PropriedadeDetailsState();
-}
-
-class _PropriedadeDetailsState extends State<PropriedadeDetails> {
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final router = ModalRoute.of(context);
-    if (router != null) {
-      final Propriedade propriedade = router.settings.arguments as Propriedade;
-    }
-  }
+  const PropriedadeDetails(this._propriedade);
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +31,7 @@ class _PropriedadeDetailsState extends State<PropriedadeDetails> {
                     )),
                 Container(
                     child: Text(
-                  'teste',
+                  _propriedade.nome,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 )),
@@ -68,7 +56,7 @@ class _PropriedadeDetailsState extends State<PropriedadeDetails> {
                     )),
                 Container(
                     child: Text(
-                  'Rafaela Ramos',
+                  _propriedade.proprietario,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 )),
@@ -91,7 +79,7 @@ class _PropriedadeDetailsState extends State<PropriedadeDetails> {
                     )),
                 Container(
                     child: Text(
-                  'Propriedade@gmail.com',
+                  _propriedade.contato,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 )),
@@ -114,7 +102,7 @@ class _PropriedadeDetailsState extends State<PropriedadeDetails> {
                     )),
                 Container(
                     child: Text(
-                  '(83)9939485885',
+                  _propriedade.telefone,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 )),

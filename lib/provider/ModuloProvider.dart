@@ -3,6 +3,7 @@ import 'dart:collection';
 import 'dart:io';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:siagro/data/db.dart';
 import 'package:siagro/models/Modulo.dart';
 import 'package:siagro/models/Propriedade.dart';
@@ -21,9 +22,11 @@ class ModuloProvider with ChangeNotifier {
   }
   _initRepository() async {}
 
-  setModulo(Modulo modulo) async {
+  setModulo(Modulo modulo, List<LatLng> poligono) async {
     db = await DBHelper.instance.database;
-    db.insert('modulos', {'nome': modulo.nome});
+    var poligonoString = poligono.toString();
+    convertPoints(poligonoString);
+    db.insert('modulos', {'nome': modulo.nome, 'poligono': poligonoString});
     notifyListeners();
   }
 
@@ -45,49 +48,18 @@ class ModuloProvider with ChangeNotifier {
     return _modulos.length;
   }
 
-  Future<Modulo> getmodulosAll(int i) async {
+  getmodulosAll() async {
     db = await DBHelper.instance.database;
-    _modulos = await db.query('modulos', columns: ["id", "nome"]);
-    _modulo = Modulo.fromMapObject(_modulos[i]);
-    int count = modulos.length;
-    List<Modulo> lista = [];
-    print(_modulo.id);
-    return _modulo;
+    Iterable list =
+        await db.query('modulos', columns: ["id", "nome", "poligono"]);
+    _modulos = list.map((model) => Modulo.fromJson(model)).toList();
+
+    notifyListeners();
   }
 
-  /*Future<List<Modulo>> getModulos([int i]) async {
-    var moduloList = await getModuloMap();
-
-    int count = moduloList.length;
-    print(count);
-    List<Modulo> modulos = List<Modulo>(r
-  Future<List<Map<String, dynamic>>> getMapList() async {
-    Database db = await DBHelper.instance.database;
-    var result = await db.rawQuery("SELECT * FROM modulos");
-    return result;
-  }*/
-
-  /* Future<Modulo> getModulo(int index) async {
-    var moduloList = await getModuloMap();
-    int count = moduloList.length;
-    print(Modulo.fromMap(moduloList[index]));
-
-    return Modulo.fromMap(moduloList[index]);
-  }*/
-
-  /* Future<Modulo> getLista(int index) async {
-    var moduloMapList = await getMapList();
-    int count = moduloMapList.length;
-
-    // ignore: deprecated_member_use
-    List<Modulo> lista = List<Modulo>();
-    //for (int i = 0; i < count; i++) {
-    //lista.add(Modulo.fromMapObject(moduloMapList[i]));
-    //print(lista);
-    //}
-    Modulo mod = Modulo.fromMapObject(moduloMapList[index]);
-    print(mod.toString());
-    return mod;
-
-}}  }*/
+  convertPoints(String teste) {
+    var testando = teste.split("LatLng(");
+    var test = testando.toString().split(') ,');
+    print('TESTANDO MODULO' + test.toString());
+  }
 }
