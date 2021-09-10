@@ -31,7 +31,7 @@ class DBHelper {
   _initDatabase() async {
     return await openDatabase(
       join(await getDatabasesPath(), 'siagro.db'),
-      version: 3,
+      version: 4,
       onCreate: _onCreate,
     );
   }
@@ -44,7 +44,9 @@ class DBHelper {
     CREATE TABLE modulos (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
        nome TEXT,
-       poligono TEXT
+      lat TEXT,
+      lng TEXT
+     
      
     );
   ''';

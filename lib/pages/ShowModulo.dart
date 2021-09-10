@@ -1,31 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:siagro/models/Modulo.dart';
+import 'package:siagro/Convert.dart';
 
 class ShowModulo extends StatefulWidget {
-  final Modulo modulo;
-
-  ShowModulo({Key key, @required this.modulo}) : super(key: key);
+  final Modulo _modulo;
+  //final String teste;
+  const ShowModulo(this._modulo);
 
   @override
-  _ShowModuloState createState() => _ShowModuloState();
+  _ShowModuloState createState() => new _ShowModuloState();
 }
 
 class _ShowModuloState extends State<ShowModulo> {
   final Set<Marker> _markers = {};
   final Set<Polyline> _polyline = {};
-
+  Modulo _modulo;
+  // String teste;
+  //
   GoogleMapController controller;
 
-  List<LatLng> latlngSegment1 = List();
+  List<LatLng> latlngSegment1 = [];
+
   LatLng _lastMapPosition;
 
   @override
   void initState() {
     super.initState();
-    //line segment 1
-    //latlngSegment1 = widget.modulo.poligono;
-    //_lastMapPosition = widget.modulo.poligono[0];
+    getPoints();
+    // print('init');
+
+    //  print("teste" + widget._modulo.lat);
   }
 
   @override
@@ -38,7 +43,7 @@ class _ShowModuloState extends State<ShowModulo> {
         onMapCreated: _onMapCreated,
         initialCameraPosition: CameraPosition(
           target: _lastMapPosition,
-          zoom: 11.0,
+          zoom: 16,
         ),
         mapType: MapType.normal,
       ),
@@ -55,23 +60,31 @@ class _ShowModuloState extends State<ShowModulo> {
         //position when map opens up
         position: _lastMapPosition,
         infoWindow: InfoWindow(
-          title: 'Awesome Polyline tutorial',
-          snippet: 'This is a snippet',
+          title: widget._modulo.nome,
+          //widget._modulo.nome,
         ),
       ));
 
       _polyline.add(Polyline(
-        polylineId: PolylineId('line1'),
+        polylineId: PolylineId('line'),
         visible: true,
         //latlng is List<LatLng>
         points: latlngSegment1,
-        width: 2,
+        width: 4,
         color: Colors.green,
       ));
-
-      //different sections of polyline can have different colors
     });
   }
 
-  convertPoints() {}
+  getPoints() {
+    List<LatLng> points =
+        convertPointsLatLng(widget._modulo.lat, widget._modulo.lng);
+
+    setState(() {
+      latlngSegment1 = points;
+      _lastMapPosition = points[1];
+    });
+
+    print(latlngSegment1);
+  }
 }

@@ -9,6 +9,15 @@ import 'package:http/http.dart' as http;
 import 'PropriedadeTile.dart';
 
 class ListPropriedades extends StatefulWidget {
+  //ListPropriedades(this.jwt, this.payload);
+//final String jwt;
+// final Map<String, dynamic> payload;
+
+/*factory ListPropriedades.fromBase64(String jwt) => ListPropriedades(
+      jwt,
+      json.decode(
+          ascii.decode(base64.decode(base64.normalize(jwt.split(".")[1])))));*/
+
   @override
   _ListPropriedadesState createState() => _ListPropriedadesState();
 }

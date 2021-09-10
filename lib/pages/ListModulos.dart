@@ -12,14 +12,6 @@ class ListModulos extends StatefulWidget {
   @override
   _ListModulosState createState() => _ListModulosState();
 }
-//ListPropriedades(this.jwt, this.payload);
-//final String jwt;
-// final Map<String, dynamic> payload;
-
-/*factory ListPropriedades.fromBase64(String jwt) => ListPropriedades(
-      jwt,
-      json.decode(
-          ascii.decode(base64.decode(base64.normalize(jwt.split(".")[1])))));*/
 
 class _ListModulosState extends State<ListModulos> {
   List<Modulo> modulos;
@@ -33,7 +25,7 @@ class _ListModulosState extends State<ListModulos> {
   getmodulosAll() async {
     db = await DBHelper.instance.database;
     Iterable list =
-        await db.query('modulos', columns: ["id", "nome", "poligono"]);
+        await db.query('modulos', columns: ["id", "nome", "lat", "lng"]);
     setState(() {
       modulos = list.map((model) => Modulo.fromJson(model)).toList();
     });

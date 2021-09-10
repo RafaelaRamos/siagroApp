@@ -4,10 +4,7 @@ import 'package:siagro/pages/CreateModulo.dart';
 import 'package:siagro/pages/CreatePropriedade.dart';
 import 'package:siagro/pages/ListModulos.dart';
 import 'package:siagro/pages/ListPropriedades.dart';
-import 'package:siagro/pages/PropriedadeDetails.dart';
-import 'package:siagro/pages/ShowModulo.dart';
 import 'package:siagro/pages/createcount.dart';
-import 'package:siagro/pages/getMap.dart';
 import 'package:siagro/pages/login.dart';
 import 'package:siagro/provider/ModuloProvider.dart';
 import 'package:siagro/provider/PropriedadeProvider.dart';
@@ -55,8 +52,8 @@ class MyApp extends StatelessWidget {
               AppRouters.LISTAMODULO: (_) => ListModulos(),
               AppRouters.CREATEPROPRIEDADE: (_) => CreatePropriedade(),
               AppRouters.CREATEMODULO: (_) => CreateModulo(),
-              AppRouters.SHOWMODULO: (_) => ShowModulo(),
-              AppRouters.GETMAP: (_) => GetMap(),
+              // AppRouters.SHOWMODULO: (_) => ShowModulo(),
+              //AppRouters.GETMAP: (_) => GetMap(),
 
               //  AppRouters.CREATEMODULO: (_) => CreateModulo()
             }));

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -230,7 +231,6 @@ class _CreateModuloState extends State<CreateModulo> {
       setState(() {
         locationList = result;
       });
-      print(locationList.toString());
     }
   }
 }
