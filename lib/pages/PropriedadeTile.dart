@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:siagro/models/Propriedade.dart';
 import 'package:siagro/pages/PropriedadeDetails.dart';
+// ignore: unused_import
 import 'package:siagro/routes/AppRouters.dart';
 
 class PropriedadeTile extends StatelessWidget {

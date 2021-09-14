@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:polymaker/core/models/trackingmode.dart';
+import 'package:siagro/Convert.dart';
 import 'package:siagro/models/Propriedade.dart';
 import 'package:siagro/pages/getMap.dart';
 import 'package:siagro/routes/AppRouters.dart';
@@ -41,13 +42,17 @@ class _CreatePropriedadeState extends State<CreatePropriedade> {
             AlertDialog(title: Text(title), content: Text(text)),
       );
 
-  Future<String> createProps(
-      String name, String proprietario, String contato, String telefone) async {
+  Future<String> createProps(String name, String proprietario, String contato,
+      String telefone, List<LatLng> poligono) async {
+    String lat = convertPointsLat(poligono);
+    String lng = convertPointsLng(poligono);
     var res = await http
         .post(Uri.parse("http://10.0.3.2:3000/api/v1/propriedade/"), body: {
       "nome": name,
       "proprietario": proprietario,
       "contato": contato,
+      "lat": lat,
+      "lng": lng,
       "telefone": telefone,
       "userId": "2"
     });
@@ -324,7 +329,8 @@ class _CreatePropriedadeState extends State<CreatePropriedade> {
                                           name,
                                           proprietario,
                                           contato,
-                                          telefone);
+                                          telefone,
+                                          locationList);
 
                                       if (newPropriedade != null) {
                                         Navigator.pop(context);

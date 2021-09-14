@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:siagro/main.dart';
 import 'package:siagro/pages/ListPropriedades.dart';
-import 'package:siagro/routes/AppRouters.dart';
+import 'package:siagro/pages/createcount.dart';
 
 class Login extends StatelessWidget {
   final storage = FlutterSecureStorage();
@@ -23,19 +22,13 @@ class Login extends StatelessWidget {
     var res = await http.post(
         Uri.parse("http://10.0.3.2:3000/api/v1/auth/login"),
         body: {"username": username, "password": password});
-    print(res.statusCode);
+    print(res.body);
 
     if (res.statusCode == 201) return res.body;
 
     return null;
   }
 
-  /*Future<int> attemptSignUp(String username, String password) async {
-    var res = await http.post('$SERVER_IP/signup',
-        body: {"username": username, "password": password});
-    return res.statusCode;
-  }
-*/
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -135,65 +128,68 @@ class Login extends StatelessWidget {
                           height: 40,
                         ),
                         Container(
-                          height: 60,
-                          width: 250,
-                          alignment: Alignment.centerLeft,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                              stops: [0.3, 1],
-                              colors: [
-                                Color(0xFF32CD32),
-                                Color(0XFF3CB371),
-                              ],
-                            ),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(5),
-                            ),
-                          ),
-                          child: SizedBox.expand(
-                            child: TextButton(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Text(
-                                    "Entrar",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                    ),
-                                    textAlign: TextAlign.left,
-                                  ),
+                            height: 60,
+                            width: 250,
+                            alignment: Alignment.centerLeft,
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                                stops: [0.3, 1],
+                                colors: [
+                                  Color(0xFF32CD32),
+                                  Color(0XFF3CB371),
                                 ],
                               ),
-                              onPressed: () async {
-                                var username = _usernameController.text;
-                                var password = _passwordController.text;
-                                Navigator.pushNamed(
-                                    context, AppRouters.LISTAPROPRIEDADES);
-
-                                /* var jwt =
-                                    await attemptLogIn(username, password);
-                                print(jwt);
-                                if (jwt != null) {
-                                  storage.write(key: "jwt", value: jwt);
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(5),
+                              ),
+                            ),
+                            child: SizedBox.expand(
+                              child: TextButton(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Text(
+                                      "Entrar",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                      ),
+                                      textAlign: TextAlign.left,
+                                    ),
+                                  ],
+                                ),
+                                onPressed: () async {
+                                  var username = _usernameController.text;
+                                  var password = _passwordController.text;
 
                                   Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              ListPropriedades.fromBase64(
-                                                  jwt)));
-                                } else {
-                                  displayDialog(context, "An Error Occurred",
-                                      "No account was found matching that username and password");
-                                }*/
-                              },
-                            ),
-                          ),
-                        ),
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            ListPropriedades()),
+                                  );
+                                  /*  var jwt =
+                                      await attemptLogIn(username, password);
+                                  print(jwt);
+                                  if (jwt != null) {
+                                    storage.write(key: "jwt", value: jwt);
+
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ListPropriedades.fromBase64(
+                                                    jwt)));
+                                  } else {
+                                    displayDialog(context, "An Error Occurred",
+                                        "No account was found matching that username and password");
+                                  }*/
+                                },
+                              ),
+                            )),
                         Container(
                           height: 40,
                           child: TextButton(
@@ -202,9 +198,8 @@ class Login extends StatelessWidget {
                               textAlign: TextAlign.center,
                             ),
                             onPressed: () {
-                              Navigator.of(context).pushNamed(
-                                AppRouters.CREATECOUNT,
-                              );
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => CreateCount()));
                             },
                           ),
                         ),

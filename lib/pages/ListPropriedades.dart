@@ -1,19 +1,17 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:siagro/models/Propriedade.dart';
-import 'package:siagro/provider/PropriedadeProvider.dart';
 import 'package:siagro/routes/AppRouters.dart';
 import 'package:http/http.dart' as http;
 
 import 'PropriedadeTile.dart';
 
 class ListPropriedades extends StatefulWidget {
+  //final String jwt;
+  // final Map<String, dynamic> payload;
   //ListPropriedades(this.jwt, this.payload);
-//final String jwt;
-// final Map<String, dynamic> payload;
 
-/*factory ListPropriedades.fromBase64(String jwt) => ListPropriedades(
+  /*factory ListPropriedades.fromBase64(String jwt) => ListPropriedades(
       jwt,
       json.decode(
           ascii.decode(base64.decode(base64.normalize(jwt.split(".")[1])))));*/
@@ -32,6 +30,7 @@ class _ListPropriedadesState extends State<ListPropriedades> {
       Iterable list = json.decode(response.body);
       propriedades = list.map((model) => Propriedade.fromJson(model)).toList();
     });
+    return propriedades;
   }
 
   initState() {
@@ -59,9 +58,19 @@ class _ListPropriedadesState extends State<ListPropriedades> {
                 },
               ),
             ]),
-        body: ListView.builder(
-          itemCount: propriedades.length,
-          itemBuilder: (ctx, i) => PropriedadeTile(propriedades[i]),
-        ));
+        body: RefreshIndicator(
+            onRefresh: _reloadList,
+            child: ListView.builder(
+              itemCount: propriedades.length,
+              itemBuilder: (ctx, i) => PropriedadeTile(propriedades[i]),
+            )));
+  }
+
+  Future<void> _reloadList() async {
+    var newList =
+        await Future.delayed(Duration(seconds: 2), () => fetchPropriedades());
+    setState(() {
+      propriedades = newList;
+    });
   }
 }

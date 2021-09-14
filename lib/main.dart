@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:siagro/pages/CreateModulo.dart';
 import 'package:siagro/pages/CreatePropriedade.dart';
-import 'package:siagro/pages/ListModulos.dart';
-import 'package:siagro/pages/ListPropriedades.dart';
 import 'package:siagro/pages/createcount.dart';
 import 'package:siagro/pages/login.dart';
 import 'package:siagro/provider/ModuloProvider.dart';
 import 'package:siagro/provider/PropriedadeProvider.dart';
-import 'routes/AppRouters.dart';
-import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart'
     show FlutterSecureStorage;
-//import 'dart:convert' show json, base64, ascii;
+
+import 'package:siagro/routes/AppRouters.dart';
 
 //const SERVER_IP = 'http://10.0.3.2:3000/api/v1/';
 final storage = FlutterSecureStorage();
@@ -47,25 +43,23 @@ class MyApp extends StatelessWidget {
             routes: {
               AppRouters.HOME: (_) => Login(),
               AppRouters.CREATECOUNT: (_) => CreateCount(),
-              // AppRouters.DETAILS: (_) => PropriedadeDetails(),
-              AppRouters.LISTAPROPRIEDADES: (_) => ListPropriedades(),
-              AppRouters.LISTAMODULO: (_) => ListModulos(),
               AppRouters.CREATEPROPRIEDADE: (_) => CreatePropriedade(),
-              AppRouters.CREATEMODULO: (_) => CreateModulo(),
+              // AppRouters.DETAILS: (_) => PropriedadeDetails(),
+              // AppRouters.LISTAPROPRIEDADES: (_) => ListPropriedades(),
+              //  AppRouters.LISTAMODULO: (_) => ListModulos(),
+              // AppRouters.CREATEMODULO: (_) => CreateModulo(),
               // AppRouters.SHOWMODULO: (_) => ShowModulo(),
               //AppRouters.GETMAP: (_) => GetMap(),
-
               //  AppRouters.CREATEMODULO: (_) => CreateModulo()
             }));
-    /*
-          home: FutureBuilder(
+  }
+}            /*home: FutureBuilder(
               future: jwtOrEmpty,
               builder: (context, snapshot) {
                 if (!snapshot.hasData) return CircularProgressIndicator();
                 if (snapshot.data != "") {
                   var str = snapshot.data;
                   var jwt = str.split(".");
-
                   if (jwt.length != 3) {
                     return Login();
                   } else {
@@ -83,7 +77,8 @@ class MyApp extends StatelessWidget {
                   return Login();
                 }
               }),
-        ));
-        */
-  }
-}
+        ));*/
+
+    
+            
+

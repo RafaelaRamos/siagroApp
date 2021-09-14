@@ -45,7 +45,8 @@ class DBHelper {
       id INTEGER PRIMARY KEY AUTOINCREMENT,
        nome TEXT,
       lat TEXT,
-      lng TEXT
+      lng TEXT, 
+      idPropriedade INTEGER
      
      
     );

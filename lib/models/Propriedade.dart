@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:siagro/models/Modulo.dart';
 
 class Propriedade {
   final int id;
@@ -8,20 +6,27 @@ class Propriedade {
   final String proprietario;
   final String contato;
   final String telefone;
+  final String lat;
+  final String lng;
+  final String sede;
   //final List<LatLng> poligono;
   //final List<Modulo> modulos;
   //final LatLng sedePoint;
 
-  const Propriedade({
-    @required this.id,
-    @required this.nome,
-    @required this.proprietario,
-    @required this.contato,
-    @required this.telefone,
-    // @required this.poligono,
-    // @required this.modulos,
-    //  @required this.sedePoint]
-  });
+  const Propriedade(
+      {@required this.id,
+      @required this.nome,
+      @required this.proprietario,
+      @required this.contato,
+      @required this.telefone,
+      @required this.lat,
+      @required this.lng,
+      @required this.sede
+
+      // @required this.poligono,
+      // @required this.modulos,
+      //  @required this.sedePoint]
+      });
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
@@ -30,6 +35,8 @@ class Propriedade {
       'proprietário': proprietario,
       'contato': contato,
       'telefone': telefone,
+      'lat': lat,
+      'sede': sede,
       //'poligono': poligono,
       //'modulo': modulos,
       //'sedePoint': sedePoint
@@ -42,7 +49,10 @@ class Propriedade {
         nome = json['nome'],
         proprietario = json['proprietario'],
         contato = json['contato'],
-        telefone = json['telefone'];
+        telefone = json['telefone'],
+        lat = json['lat'],
+        lng = json['lng'],
+        sede = json['sede'];
 
   Map toJson() {
     return {
@@ -51,6 +61,8 @@ class Propriedade {
       'proprietario': proprietario,
       'contato': contato,
       'telefone': telefone,
+      'lat': lat,
+      'sede': sede
     };
   }
 }

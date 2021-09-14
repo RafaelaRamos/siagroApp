@@ -14,8 +14,11 @@ import 'package:siagro/routes/AppRouters.dart';
 import 'package:polymaker/polymaker.dart' as polymaker;
 
 class CreateModulo extends StatefulWidget {
+  final int _idPropriedade;
   @override
   _CreateModuloState createState() => _CreateModuloState();
+
+  const CreateModulo(this._idPropriedade);
 }
 
 class _CreateModuloState extends State<CreateModulo> {
@@ -160,13 +163,13 @@ class _CreateModuloState extends State<CreateModulo> {
                                               listen: false)
                                           .setModulo(
                                               Modulo(
-                                                nome: _formData['nome']
-                                                    .toString(),
-                                              ),
+                                                  nome: _formData['nome']
+                                                      .toString(),
+                                                  idPropriedade:
+                                                      widget._idPropriedade),
                                               this.locationList);
 
-                                      Navigator.pushNamed(
-                                          context, AppRouters.LISTAMODULO);
+                                      Navigator.pop(context);
                                     }
                                   },
                                 ),

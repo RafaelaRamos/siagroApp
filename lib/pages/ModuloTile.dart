@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:siagro/models/Modulo.dart';
-import 'package:siagro/models/Propriedade.dart';
 import 'package:siagro/pages/ShowModulo.dart';
-import 'package:siagro/routes/AppRouters.dart';
 
 class ModuloTile extends StatelessWidget {
   final Modulo _modulo;

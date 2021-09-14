@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:siagro/models/Propriedade.dart';
-import 'package:siagro/routes/AppRouters.dart';
+import 'package:siagro/pages/ListModulos.dart';
+import 'package:siagro/pages/showPropriedade.dart';
 
 class PropriedadeDetails extends StatelessWidget {
   final Propriedade _propriedade;
@@ -116,19 +117,26 @@ class PropriedadeDetails extends StatelessWidget {
             child: Row(
               children: [
                 Container(
-                    margin: EdgeInsets.all(25.0),
-                    child: Text(
-                      'Localização:',
-                      textAlign: TextAlign.center,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    )),
-                Container(
-                    child: Text(
-                  'Cajazeiras PB, sitio ...',
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                )),
+                  margin: EdgeInsets.all(25.0),
+                  height: 40,
+                  child: TextButton(
+                      child: Text(
+                        "Visualizar Localização",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                          fontSize: 14,
+                        ),
+                      ),
+                      onPressed: () => {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        ShowPropriedade(_propriedade)))
+                          }),
+                )
               ],
             ),
           ),
@@ -144,11 +152,15 @@ class PropriedadeDetails extends StatelessWidget {
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.green,
-                      fontSize: 20,
+                      fontSize: 16,
                     ),
                   ),
                   onPressed: () => {
-                        Navigator.pushNamed(context, AppRouters.LISTAMODULO),
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    ListModulos(_propriedade.id)))
                       }),
             )
           ]),

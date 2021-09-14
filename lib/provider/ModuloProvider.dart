@@ -19,11 +19,16 @@ class ModuloProvider with ChangeNotifier {
   }
 
   setModulo(Modulo modulo, List<LatLng> poligono) async {
-    print(poligono);
+    print(modulo.toString());
     db = await DBHelper.instance.database;
     String lat = convertPointsLat(poligono);
     String lng = convertPointsLng(poligono);
-    db.insert('modulos', {'nome': modulo.nome, 'lat': lat, 'lng': lng});
+    db.insert('modulos', {
+      'nome': modulo.nome,
+      'lat': lat,
+      'lng': lng,
+      'idPropriedade': modulo.idPropriedade
+    });
 
     notifyListeners();
   }

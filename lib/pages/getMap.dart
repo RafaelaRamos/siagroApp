@@ -20,7 +20,7 @@ class _GetMapState extends State<GetMap> {
                 style: TextStyle(fontWeight: FontWeight.bold)),
             actions: <Widget>[
               IconButton(
-                icon: Icon(Icons.add),
+                icon: Icon(Icons.save_outlined),
                 onPressed: () => {getPoint()},
               ),
             ]),
